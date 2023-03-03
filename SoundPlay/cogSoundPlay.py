@@ -2,22 +2,22 @@ import os
 
 # Addons imports
 # Init file
-import addons.soundplay.init as init
+import addons.SoundPlay.init as init
 # Database
-from addons.soundplay.handlers.handlerDatabaseInit import databaseInit
+from addons.SoundPlay.handlers.handlerDatabaseInit import databaseInit
 # Settings
-import addons.soundplay.settings.settingAddon as settingAddon
+import addons.SoundPlay.settings.settingAddon as settingAddon
 # Functions
-from addons.soundplay.functions.commands.commandPlay import play
-from addons.soundplay.functions.commands.commandFolderCreate import folderCreate
-from addons.soundplay.functions.commands.commandFolderDelete import folderDelete
-from addons.soundplay.functions.commands.commandSoundUpload import upload
-from addons.soundplay.functions.commands.commandSoundDelete import soundDelete
+from addons.SoundPlay.functions.commands.commandPlay import play
+from addons.SoundPlay.functions.commands.commandFolderCreate import folderCreate
+from addons.SoundPlay.functions.commands.commandFolderDelete import folderDelete
+from addons.SoundPlay.functions.commands.commandSoundUpload import upload
+from addons.SoundPlay.functions.commands.commandSoundDelete import soundDelete
 # Events
-from addons.soundplay.functions.events.eventOnReady import onReady
-from addons.soundplay.functions.events.eventOnGuildJoin import onGuildJoin
-from addons.soundplay.functions.events.eventOnGuildRemove import onGuildRemove
-from addons.soundplay.functions.events.eventOnVoiceStateUpdate import onVoiceStateUpdate
+from addons.SoundPlay.functions.events.eventOnReady import onReady
+from addons.SoundPlay.functions.events.eventOnGuildJoin import onGuildJoin
+from addons.SoundPlay.functions.events.eventOnGuildRemove import onGuildRemove
+from addons.SoundPlay.functions.events.eventOnVoiceStateUpdate import onVoiceStateUpdate
 
 # BotAssistant imports
 from services.serviceLogger import consoleLogger as Logger

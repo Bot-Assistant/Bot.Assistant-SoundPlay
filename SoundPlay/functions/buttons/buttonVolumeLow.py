@@ -3,7 +3,7 @@ import contextlib
 import services.serviceBot as serviceBot
 discord = serviceBot.classBot.getDiscord()
 
-from addons.soundplay.settings.settingAddon import *
+from addons.SoundPlay.settings.settingAddon import *
 
 FFMPEG_OPTIONS = {'executable': './addons/soundplay/requirements/ffmpeg.exe'}
 

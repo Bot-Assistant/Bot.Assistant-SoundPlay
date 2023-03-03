@@ -1,15 +1,15 @@
 import os
 
-from addons.soundplay.functions.buttons.buttonPlaySound import ButtonPlaySound
-from addons.soundplay.functions.buttons.buttonStopSound import ButtonStopSound
-from addons.soundplay.functions.buttons.buttonVolumeLow import ButtonVolumeLow
-from addons.soundplay.functions.buttons.buttonVolumeHigh import ButtonVolumeHigh
-from addons.soundplay.functions.buttons.buttonVolumeSave import ButtonVolumeSave
-import addons.soundplay.handlers.handlerSoundsList as handlerSoundsList
+from addons.SoundPlay.functions.buttons.buttonPlaySound import ButtonPlaySound
+from addons.SoundPlay.functions.buttons.buttonStopSound import ButtonStopSound
+from addons.SoundPlay.functions.buttons.buttonVolumeLow import ButtonVolumeLow
+from addons.SoundPlay.functions.buttons.buttonVolumeHigh import ButtonVolumeHigh
+from addons.SoundPlay.functions.buttons.buttonVolumeSave import ButtonVolumeSave
+import addons.SoundPlay.handlers.handlerSoundsList as handlerSoundsList
 
-from addons.soundplay.settings.settingAddon import *
+from addons.SoundPlay.settings.settingAddon import *
 
-import addons.soundplay.handlers.handlerSettings as handlerSettings
+import addons.SoundPlay.handlers.handlerSettings as handlerSettings
 
 from settings.settingColors import *
 

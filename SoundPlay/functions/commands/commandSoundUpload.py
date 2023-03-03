@@ -3,8 +3,8 @@ import os
 import services.serviceBot as serviceBot
 discord = serviceBot.classBot.getDiscord()
 
-from addons.soundplay.settings.settingAddon import *
-import addons.soundplay.handlers.handlerSoundsList as handlerSoundsList
+from addons.SoundPlay.settings.settingAddon import *
+import addons.SoundPlay.handlers.handlerSoundsList as handlerSoundsList
 
 from settings.settingColors import *
 

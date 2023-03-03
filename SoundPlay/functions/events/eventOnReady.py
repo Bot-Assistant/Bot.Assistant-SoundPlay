@@ -2,9 +2,9 @@ import os
 
 # Addons imports
 
-import addons.soundplay.handlers.handlerSoundsList as handlerSoundsList
+import addons.SoundPlay.handlers.handlerSoundsList as handlerSoundsList
 # Settings
-from addons.soundplay.settings.settingAddon import *
+from addons.SoundPlay.settings.settingAddon import *
 
 # Init BotAssistant
 import services.serviceBot as serviceBot

@@ -1,5 +1,5 @@
 # Settings
-from addons.soundplay.settings.settingAddon import *
+from addons.SoundPlay.settings.settingAddon import *
 
 # Init BotAssistant
 import services.serviceBot as serviceBot

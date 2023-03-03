@@ -5,7 +5,7 @@ from settings.settingColors import *
 import services.serviceBot as serviceBot
 discord = serviceBot.classBot.getDiscord()
 
-from addons.soundplay.settings.settingAddon import *
+from addons.SoundPlay.settings.settingAddon import *
 
 async def folderCreate(ctx, directory):
 

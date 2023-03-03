@@ -1,12 +1,12 @@
 import os
 import contextlib
-import addons.soundplay.handlers.handlerSettings as handlerSettings
-import addons.soundplay.handlers.handlerSoundsList as handlerSoundsList
+import addons.SoundPlay.handlers.handlerSettings as handlerSettings
+import addons.SoundPlay.handlers.handlerSoundsList as handlerSoundsList
 
 import services.serviceBot as serviceBot
 discord = serviceBot.classBot.getDiscord()
 
-from addons.soundplay.settings.settingAddon import *
+from addons.SoundPlay.settings.settingAddon import *
 
 FFMPEG_OPTIONS = {'executable': './addons/soundplay/requirements/ffmpeg.exe'}
 

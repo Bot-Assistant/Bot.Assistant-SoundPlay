@@ -5,8 +5,8 @@ from settings.settingColors import *
 import services.serviceBot as serviceBot
 discord = serviceBot.classBot.getDiscord()
 
-from addons.soundplay.settings.settingAddon import *
-import addons.soundplay.handlers.handlerSoundsList as handlerSoundsList
+from addons.SoundPlay.settings.settingAddon import *
+import addons.SoundPlay.handlers.handlerSoundsList as handlerSoundsList
 
 async def soundDelete(ctx, directory, sound):
     # Folder where the sounds are located
