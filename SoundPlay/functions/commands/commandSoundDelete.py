@@ -9,6 +9,12 @@ from addons.SoundPlay.settings.settingAddon import *
 import addons.SoundPlay.handlers.handlerSoundsList as handlerSoundsList
 
 async def soundDelete(ctx, directory, sound):
+
+    # PERMISSIONS CHECK
+    import addons.SoundPlay.functions.services.servicePermission as servicePermission
+    if await servicePermission.permissionCheck(ctx, "cmdDeleteSound") == False:
+        return
+
     # Folder where the sounds are located
     folder = defaultSoundFolder
 

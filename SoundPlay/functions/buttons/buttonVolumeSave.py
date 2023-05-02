@@ -1,4 +1,6 @@
+import os
 import contextlib
+
 import addons.SoundPlay.handlers.handlerSettings as handlerSettings
 
 import services.serviceBot as serviceBot
@@ -6,7 +8,10 @@ discord = serviceBot.classBot.getDiscord()
 
 from addons.SoundPlay.settings.settingAddon import *
 
-FFMPEG_OPTIONS = {'executable': './addons/soundplay/requirements/ffmpeg.exe'}
+if os.name == "nt":
+    FFMPEG_OPTIONS = {'executable': './addons/SoundPlay/requirements/ffmpeg.exe'}
+elif os.name == "posix":
+    FFMPEG_OPTIONS = {'executable': './addons/SoundPlay/requirements/ffmpeg'}
 
 class ButtonVolumeSave(discord.ui.Button):
     def __init__(self):

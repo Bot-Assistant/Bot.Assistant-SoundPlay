@@ -2,7 +2,7 @@
 enableGithub = True
 author = "Ted-18"
 repository = "Bot.Assistant-SoundPlay"
-version = "1.0.0"
+version = "1.1.0"
 
 # To activate this addon
 cogEnabled = True
@@ -31,4 +31,23 @@ addonPermissions = [
     "speak",
 ]
 
+commandPermissions = {
+    # Permission to check the addon's permissions
+    "cmdRequirements" : "discord.permission.manage_guild",
+
+    # Permission to play a sound
+    "cmdPlay" : "discord.permission.connect",
+
+    # Permission to create a folder
+    "cmdCreateFolder" : "discord.permission.manage_messages",
+
+    # Permission to remove a folder
+    "cmdRemoveFolder" : "discord.permission.manage_messages",
+
+    # Permission to upload a sound
+    "cmdUploadSound" : "discord.permission.manage_messages",
+
+    # Permission to remove a sound
+    "cmdDeleteSound" : "discord.permission.manage_messages"
+}
 

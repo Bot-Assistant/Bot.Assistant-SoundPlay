@@ -10,6 +10,11 @@ from settings.settingColors import *
 
 async def upload(ctx, directory, sound):
 
+    # PERMISSIONS CHECK
+    import addons.SoundPlay.functions.services.servicePermission as servicePermission
+    if await servicePermission.permissionCheck(ctx, "cmdUploadSound") == False:
+        return
+
     # Folder where the sounds are located
     folder = defaultSoundFolder
 

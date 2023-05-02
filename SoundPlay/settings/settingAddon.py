@@ -1,3 +1,3 @@
 # Sound folder 
-defaultSoundFolder = "./addons/soundplay/sound/"
+defaultSoundFolder = "./addons/SoundPlay/sound/"
 defaultVolume = 0.50

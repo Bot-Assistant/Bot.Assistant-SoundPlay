@@ -8,7 +8,10 @@ discord = serviceBot.classBot.getDiscord()
 
 from addons.SoundPlay.settings.settingAddon import *
 
-FFMPEG_OPTIONS = {'executable': './addons/soundplay/requirements/ffmpeg.exe'}
+if os.name == "nt":
+    FFMPEG_OPTIONS = {'executable': './addons/SoundPlay/requirements/ffmpeg.exe'}
+elif os.name == "posix":
+    FFMPEG_OPTIONS = {'executable': './addons/SoundPlay/requirements/ffmpeg'}
 
 class ButtonPlaySound(discord.ui.Button):
 
@@ -19,6 +22,11 @@ class ButtonPlaySound(discord.ui.Button):
         self.volume = defaultVolume
         
     async def callback(self, interaction: discord.Interaction):
+
+        # Verify if the user is in a afk channel
+        if interaction.user.voice.channel == interaction.guild.afk_channel:
+            await interaction.response.send_message("You can't play sounds in the afk channel", ephemeral=True, delete_after=5)
+            return
 
         # Get the default volume from the database
         databaseVolume = handlerSettings.getVolume(interaction.guild.id, interaction.user.id)
@@ -35,6 +43,7 @@ class ButtonPlaySound(discord.ui.Button):
         # Verify if the bot is in a voice channel 
         # and if it is in the same voice channel as the user
         if interaction.guild.voice_client is None:
+            print("Connecting to voice channel")
             await interaction.user.voice.channel.connect()
         elif interaction.guild.voice_client.channel != interaction.user.voice.channel:
             await interaction.guild.voice_client.move_to(interaction.user.voice.channel)    
@@ -48,6 +57,12 @@ class ButtonPlaySound(discord.ui.Button):
         if not os.path.isfile(FFMPEG_OPTIONS["executable"]):
             await interaction.response.send_message("FFmpeg is not installed", ephemeral=True, delete_after=5)
             return
+
+        if os.name == "posix":
+            # Verify if ffmpeg has execute permission
+            if not os.access(FFMPEG_OPTIONS["executable"], os.X_OK):
+                await interaction.response.send_message("FFmpeg does not have execute permission", ephemeral=True, delete_after=5)
+                return
 
         # Add 1 to the number of times the sound has been played
         folder = self.folder.replace(".", "")

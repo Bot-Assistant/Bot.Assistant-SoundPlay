@@ -1,36 +1,43 @@
+# Author: Ted.
+# Co-Author: Mr.Se6un
+
+# External imports
 import os
 
-# Addons imports
-# Init file
-import addons.SoundPlay.init as init
-# Database
-from addons.SoundPlay.handlers.handlerDatabaseInit import databaseInit
-# Settings
-import addons.SoundPlay.settings.settingAddon as settingAddon
-# Functions
-from addons.SoundPlay.functions.commands.commandPlay import play
-from addons.SoundPlay.functions.commands.commandFolderCreate import folderCreate
-from addons.SoundPlay.functions.commands.commandFolderDelete import folderDelete
-from addons.SoundPlay.functions.commands.commandSoundUpload import upload
-from addons.SoundPlay.functions.commands.commandSoundDelete import soundDelete
-# Events
-from addons.SoundPlay.functions.events.eventOnReady import onReady
-from addons.SoundPlay.functions.events.eventOnGuildJoin import onGuildJoin
-from addons.SoundPlay.functions.events.eventOnGuildRemove import onGuildRemove
-from addons.SoundPlay.functions.events.eventOnVoiceStateUpdate import onVoiceStateUpdate
-
-# BotAssistant imports
+# BOTASSISTANT IMPORTS
 from services.serviceLogger import consoleLogger as Logger
-import services.servicePermissionCheck as servicePermissionCheck
+from services.serviceDiscordLogger import discordLogger as DiscordLogger
+from settings.settingBot import debug
+import services.serviceBot as serviceBot
+# Settings
 from settings.settingBot import debug
 
-
-# Init BotAssistant
-import services.serviceBot as serviceBot
+# Discord
 discord = serviceBot.classBot.getDiscord()
 discordCommands = serviceBot.classBot.getDiscordCommands()
 commands = serviceBot.classBot.getCommands()
 bot = serviceBot.classBot.getBot()
+
+
+# 𝗔𝗗𝗗𝗢𝗡
+# Init file
+import addons.SoundPlay.init as init
+# Database
+import addons.SoundPlay.handlers.handlerDatabaseInit as handlerDatabaseInit
+# Settings
+import addons.SoundPlay.settings.settingAddon as settingAddon
+# Functions
+import addons.SoundPlay.functions.commands.commandRequirements as commandRequirements
+import addons.SoundPlay.functions.commands.commandPlay as commandPlay
+import addons.SoundPlay.functions.commands.commandFolderCreate as commandFolderCreate
+import addons.SoundPlay.functions.commands.commandFolderDelete as commandFolderDelete
+import addons.SoundPlay.functions.commands.commandSoundUpload as commandSoundUpload
+import addons.SoundPlay.functions.commands.commandSoundDelete as commandSoundDelete
+# Events
+import addons.SoundPlay.functions.events.eventOnReady as eventOnReady
+import addons.SoundPlay.functions.events.eventOnGuildJoin as eventOnGuildJoin
+import addons.SoundPlay.functions.events.eventOnGuildRemove as eventOnGuildRemove
+import addons.SoundPlay.functions.events.eventOnVoiceStateUpdate as eventOnVoiceStateUpdate
 
 
 class PlaySound(commands.Cog):
@@ -41,21 +48,21 @@ class PlaySound(commands.Cog):
     # INIT SOUNDS FOLDERS
     @commands.Cog.listener()
     async def on_ready(self):
-        onReady()
+        eventOnReady.onReady()
 
     # Create the sound folder with guild ID if it doesn't exist
     @commands.Cog.listener()
     async def on_guild_join(self, guild):
-        onGuildJoin(guild)
+        eventOnGuildJoin.onGuildJoin(guild)
 
     # Remove the sound folder with guild ID if it exists
     @commands.Cog.listener()
     async def on_guild_remove(self, guild):
-        onGuildRemove(guild)
+        eventOnGuildRemove.onGuildRemove(guild)
     
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
-        await onVoiceStateUpdate(member, before, after)
+        await eventOnVoiceStateUpdate.onVoiceStateUpdate(member, before, after)
 
 
 
@@ -73,11 +80,13 @@ class PlaySound(commands.Cog):
     groupDeleteElement = groupSoundPlay.create_subgroup("delete", "Various commands to delete sounds or folders")
     groupCreateElement = groupSoundPlay.create_subgroup("create", "Various commands to create folders")
 
-    # Verify if the bot has the permissions
-    @groupSoundPlay.command(name="permissions", description="Check the permissions of the bot")
-    async def cmdSFXPermissions(self, ctx: commands.Context):
-        await servicePermissionCheck.permissionCheck(ctx, init.addonPermissions)
+    # Verify if the bot has the prerequisites permissions
+    @groupSoundPlay.command(name="requirements", description="Check the prerequisites permissions of the addon.")
+    async def cmdPermissions(self, ctx: commands.Context):
+        await DiscordLogger.info(ctx, init.cogName, ctx.author.name + " has used the requirements command.", str(ctx.command))
+        await commandRequirements.checkRequirements(ctx) 
 
+    
     # PLAY A SOUND
     # Play a sound from the sound folder
     @groupSoundPlay.command(name="play", description="Play a sound from the sound folder")
@@ -86,7 +95,7 @@ class PlaySound(commands.Cog):
         ctx: commands.Context,
         directory: discord.Option(str, autocomplete=discord.utils.basic_autocomplete(getSoundsFolders), description="Folder where the sound is located")
         ):
-        await play(ctx, directory)
+        await commandPlay.play(ctx, directory)
 
 
     # UPLOAD A SOUND
@@ -98,7 +107,7 @@ class PlaySound(commands.Cog):
         directory: discord.Option(str, autocomplete=discord.utils.basic_autocomplete(getSoundsFolders), description="Folder where the sound is located", required=True),
         sound: discord.Option(discord.Attachment, description="Sound to upload", required=True)
         ):
-        await upload(ctx, directory, sound)
+        await commandSoundUpload.upload(ctx, directory, sound)
 
 
     # DELETE A ELEMENT
@@ -109,7 +118,7 @@ class PlaySound(commands.Cog):
         ctx: commands.Context,
         directory: discord.Option(str, description="Folder where the sound is located")
         ):
-        await folderCreate(ctx, directory)
+        await commandFolderCreate.folderCreate(ctx, directory)
 
     # Delete a sound folder in the sound folder
     @groupDeleteElement.command(name="folder", description="Delete a sound folder in the sound folder")
@@ -118,7 +127,7 @@ class PlaySound(commands.Cog):
         ctx: commands.Context,
         directory: discord.Option(str, autocomplete=discord.utils.basic_autocomplete(getSoundsFolders), description="Folder where the sound is located")
         ):
-        await folderDelete(ctx, directory)
+        await commandFolderDelete.folderDelete(ctx, directory)
 
     # Delete a sound in a specific folder
     @groupDeleteElement.command(name="sound", description="Delete a sound in a specific folder")
@@ -128,13 +137,13 @@ class PlaySound(commands.Cog):
         directory: discord.Option(str, autocomplete=discord.utils.basic_autocomplete(getSoundsFolders), description="Folder where the sound is located", required=True),
         sound: discord.Option(str, autocomplete=discord.utils.basic_autocomplete(getSounds), description="Sound to delete", required=True)
         ):
-        await soundDelete(ctx, directory, sound)
+        await commandSoundDelete.soundDelete(ctx, directory, sound)
 
 
 # INIT COG
 def setup(bot):
     if debug: Logger.debug("[COG][SOUNDPLAY]Sound play cog init")
-    databaseInit()
+    handlerDatabaseInit.databaseInit()
     bot.add_cog(PlaySound(bot))
 
 

@@ -9,6 +9,11 @@ from addons.SoundPlay.settings.settingAddon import *
 
 async def folderCreate(ctx, directory):
 
+    # PERMISSIONS CHECK
+    import addons.SoundPlay.functions.services.servicePermission as servicePermission
+    if await servicePermission.permissionCheck(ctx, "cmdCreateFolder") == False:
+        return
+
     # Folder where the sounds are located
     folder = defaultSoundFolder
 

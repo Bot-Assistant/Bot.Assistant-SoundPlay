@@ -19,8 +19,19 @@ discord = serviceBot.classBot.getDiscord()
 
 async def play(ctx, directory):
 
+    # PERMISSIONS CHECK
+    import addons.SoundPlay.functions.services.servicePermission as servicePermission
+    if await servicePermission.permissionCheck(ctx, "cmdPlay") == False:
+        return
+
+    # Verify if the user is in a afk channel
+    if ctx.author.voice.channel == ctx.guild.afk_channel:
+        embed = discord.Embed(title=f"SOUNDBOARD : {directory}", description="You can't play sounds in the afk channel", color=red)
+        await ctx.respond(embed=embed)
+        return
+
     # Folder where the sounds are located
-    folder = f"./addons/soundplay/sound/"
+    folder = f"./addons/SoundPlay/sound/"
 
     selectedFolder = folder + str(ctx.guild.id) + "/" + directory + "/"
 
