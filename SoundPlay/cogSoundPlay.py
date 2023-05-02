@@ -76,9 +76,9 @@ class PlaySound(commands.Cog):
 
 
     # INIT GROUP COMMAND
-    groupSoundPlay = discordCommands.SlashCommandGroup(init.cogName, "Various commands to play sounds")
-    groupDeleteElement = groupSoundPlay.create_subgroup("delete", "Various commands to delete sounds or folders")
-    groupCreateElement = groupSoundPlay.create_subgroup("create", "Various commands to create folders")
+    groupSoundPlay = discordCommands.SlashCommandGroup(init.cogName, "🔶 Group of commands to manage the SoundPlay addon")
+    groupDeleteElement = groupSoundPlay.create_subgroup("delete", "🔶 Group of commands to delete elements")
+    groupCreateElement = groupSoundPlay.create_subgroup("create", "🔶 Group of commands to create elements")
 
     # Verify if the bot has the prerequisites permissions
     @groupSoundPlay.command(name="requirements", description="Check the prerequisites permissions of the addon.")
@@ -90,7 +90,7 @@ class PlaySound(commands.Cog):
     # PLAY A SOUND
     # Play a sound from the sound folder
     @groupSoundPlay.command(name="play", description="Play a sound from the sound folder")
-    async def cmdSFX(
+    async def cmdPlay(
         self,
         ctx: commands.Context,
         directory: discord.Option(str, autocomplete=discord.utils.basic_autocomplete(getSoundsFolders), description="Folder where the sound is located")
