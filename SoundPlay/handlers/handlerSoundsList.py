@@ -1,5 +1,5 @@
 import services.serviceDatabase as serviceDatabase      
-from services.serviceLogger import consoleLogger as Logger
+from services.serviceLogger import Logger
 
 from settings.settingBot import debug
 
@@ -15,8 +15,7 @@ def addSound(server_ID, folderName, soundName, soundPlayCount):
     try:
         serviceDatabase.makeRequest(requestFormat, requestSettings)
         
-        if debug == True:
-            Logger.debug("[HANDLER][SOUNDPLAY] Adding sound -> " + str(server_ID) + " " + str(folderName) + " " + str(soundName) + " " + str(soundPlayCount))
+        Logger.debug("[HANDLER][SOUNDPLAY] Adding sound -> " + str(server_ID) + " " + str(folderName) + " " + str(soundName) + " " + str(soundPlayCount))
     
     except Exception as error:
         Logger.error("[HANDLER][SOUNDPLAY] DB error addSound -> " + str(error))
@@ -34,8 +33,7 @@ def removeSound(server_ID, folderName, soundName):
     try:
         serviceDatabase.makeRequest(requestFormat, requestSettings)
         
-        if debug == True:
-            Logger.debug("[HANDLER][SOUNDPLAY] Removing sound -> " + str(server_ID) + " " + str(folderName) + " " + str(soundName))
+        Logger.debug("[HANDLER][SOUNDPLAY] Removing sound -> " + str(server_ID) + " " + str(folderName) + " " + str(soundName))
     
     except Exception as error:
         Logger.error("[HANDLER][SOUNDPLAY] DB error removeSound -> " + str(error))
@@ -54,8 +52,7 @@ def updateSoundPlayCount(server_ID, folderName, soundName, soundPlayCount):
     try:
         serviceDatabase.makeRequest(requestFormat, requestSettings)
         
-        if debug == True:
-            Logger.debug("[HANDLER][SOUNDPLAY] Updating sound play count -> " + str(server_ID) + " " + str(folderName) + " " + str(soundName) + " " + str(soundPlayCount))
+        Logger.debug("[HANDLER][SOUNDPLAY] Updating sound play count -> " + str(server_ID) + " " + str(folderName) + " " + str(soundName) + " " + str(soundPlayCount))
     
     except Exception as error:
         Logger.error("[HANDLER][SOUNDPLAY] DB error updateSoundPlayCount -> " + str(error))
@@ -75,8 +72,7 @@ def getAllSoundsInfo(server_ID):
     try:
         result = serviceDatabase.getInfoRequest(requestFormat, requestSettings)
         
-        if debug == True:
-            Logger.debug("[HANDLER][SOUNDPLAY] Retrieving all sounds information -> " + str(server_ID))
+        Logger.debug("[HANDLER][SOUNDPLAY] Retrieving all sounds information -> " + str(server_ID))
             
         return result
     

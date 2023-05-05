@@ -5,7 +5,7 @@
 import os
 
 # BOTASSISTANT IMPORTS
-from services.serviceLogger import consoleLogger as Logger
+from services.serviceLogger import Logger
 from services.serviceDiscordLogger import discordLogger as DiscordLogger
 from settings.settingBot import debug
 import services.serviceBot as serviceBot
@@ -142,7 +142,7 @@ class PlaySound(commands.Cog):
 
 # INIT COG
 def setup(bot):
-    if debug: Logger.debug("[COG][SOUNDPLAY]Sound play cog init")
+    Logger.debug("[COG][SOUNDPLAY]Sound play cog init")
     handlerDatabaseInit.databaseInit()
     bot.add_cog(PlaySound(bot))
 

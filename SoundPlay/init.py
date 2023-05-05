@@ -2,7 +2,7 @@
 enableGithub = True
 author = "Ted-18"
 repository = "Bot.Assistant-SoundPlay"
-version = "1.2.2"
+version = "1.2.3"
 
 # To activate this addon
 cogEnabled = True

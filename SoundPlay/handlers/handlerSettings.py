@@ -1,5 +1,5 @@
 import services.serviceDatabase as serviceDatabase      
-from services.serviceLogger import consoleLogger as Logger
+from services.serviceLogger import Logger
 
 from settings.settingBot import debug
 
@@ -12,8 +12,7 @@ def saveVolume(server_ID, user_ID, volume):
                     """
     requestSettings = (server_ID, user_ID, volume)
     try:
-        if debug == True:
-            Logger.debug("[HANDLER][SOUNDPLAY] Saving volume " + str(server_ID) + " " + str(user_ID) + " " + str(volume))
+        Logger.debug("[HANDLER][SOUNDPLAY] Saving volume " + str(server_ID) + " " + str(user_ID) + " " + str(volume))
             
         serviceDatabase.makeRequest(requestFormat, requestSettings)
         
@@ -32,8 +31,7 @@ def getVolume(server_ID, user_ID):
     try:
         result = serviceDatabase.getInfoRequest(requestFormat, requestSettings)
         
-        if debug == True:
-            Logger.debug("[HANDLER][SOUNDPLAY] Retrieving volume -> " + str(server_ID) + " " + str(user_ID))
+        Logger.debug("[HANDLER][SOUNDPLAY] Retrieving volume -> " + str(server_ID) + " " + str(user_ID))
             
         return result
     
@@ -50,8 +48,7 @@ def updateVolume(server_ID, user_ID, volume):
                     """
     requestSettings = (volume, server_ID, user_ID)
     try:
-        if debug == True:
-            Logger.debug("[HANDLER][SOUNDPLAY] Updating volume " + str(server_ID) + " " + str(user_ID) + " " + str(volume))
+        Logger.debug("[HANDLER][SOUNDPLAY] Updating volume " + str(server_ID) + " " + str(user_ID) + " " + str(volume))
             
         serviceDatabase.makeRequest(requestFormat, requestSettings)
         
